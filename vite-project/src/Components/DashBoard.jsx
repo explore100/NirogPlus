@@ -127,7 +127,12 @@ const DashBoard = () => {
           >
             <FaCartArrowDown /> Checkout
           </Link>
-          
+           <Link
+            to="/DashBoard/orderplacement"
+            className="hidden"
+          >
+            <FaCartArrowDown /> Orderplacement
+          </Link>
 
           {user?.role === "admin" && (<Link
             to="/DashBoard/admin"

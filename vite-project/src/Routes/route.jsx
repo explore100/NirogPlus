@@ -17,6 +17,7 @@ import AdminD from "../Pages/AdminD";
 import ViewSpareParts from "../Pages/ViewSpareParts";
 import Cart from "../Pages/Cart";
 import Billing from "../Checkout/Billing";
+import Orderplacement from "../Pages/Orderplacement";
 
 
 
@@ -52,6 +53,7 @@ export const router = createBrowserRouter([
           { path: "spare-parts", element: <ViewSpareParts /> },
           { path: "cart", element: <Cart /> },
           { path: "billing", element: <Billing />},
+          {path: "orderplacement", element: <Orderplacement />},
 
           //admin  dashboard
           {

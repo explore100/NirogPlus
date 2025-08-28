@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const AdminDashboard = () => {
   const [requests, setRequests] = useState([]);
   const [replies, setReplies] = useState({});
+  const [links, setLinks] = useState({}); // ✅ store link messages
 
   useEffect(() => {
     const fetchRequests = async () => {
@@ -26,6 +27,10 @@ const AdminDashboard = () => {
     setReplies((prev) => ({ ...prev, [id]: message }));
   };
 
+  const handleLinkChange = (id, message) => {
+    setLinks((prev) => ({ ...prev, [id]: message }));
+  };
+
   const sendReply = async (id) => {
     try {
       const token = localStorage.getItem('token');
@@ -43,6 +48,28 @@ const AdminDashboard = () => {
       setReplies((prev) => ({ ...prev, [id]: '' }));
     } catch (err) {
       toast.error('Failed to send reply');
+    }
+  };
+
+  // ✅ New: send link message
+  const sendLink = async (id) => {
+    try {
+      const token = localStorage.getItem('token');
+      await axios.put(
+        
+        `http://localhost:3000/api/repair/${id}/link`,
+        { linkMessage: links[id] },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      toast.success('Link message sent!');
+      setRequests((prev) =>
+        prev.map((r) =>
+          r.id === id ? { ...r, linkMessage: links[id] } : r
+        )
+      );
+      setLinks((prev) => ({ ...prev, [id]: '' }));
+    } catch (err) {
+      toast.error('Failed to send link');
     }
   };
 
@@ -89,7 +116,8 @@ const AdminDashboard = () => {
               {new Date(req.scheduled).toLocaleString()}
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center gap-2">
+            {/* Reply Section */}
+            <div className="flex flex-col sm:flex-row items-center gap-2 mb-2">
               <input
                 type="text"
                 placeholder="Reply to user"
@@ -105,9 +133,35 @@ const AdminDashboard = () => {
               </button>
             </div>
 
+            {/* ✅ New Link Message Section */}
+            <div className="flex flex-col sm:flex-row items-center gap-2">
+              <input
+                type="text"
+                placeholder="Send link (Zoom, Meet, etc.)"
+                className="flex-1 border rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-400"
+                value={links[req.id] || ''}
+                onChange={(e) => handleLinkChange(req.id, e.target.value)}
+              />
+              <button
+                onClick={() => sendLink(req.id)}
+                className="bg-green-600 text-white text-sm px-4 py-2 rounded-lg hover:bg-green-700 transition"
+              >
+                Send Link
+              </button>
+            </div>
+
             {req.adminMessage && (
               <p className="mt-3 text-gray-700 text-sm">
                 <span className="font-medium">Admin Reply:</span> {req.adminMessage}
+              </p>
+            )}
+
+            {req.linkMessage && (
+              <p className="mt-2 text-blue-600 text-sm">
+                <span className="font-medium">Link:</span>{' '}
+                <a href={req.linkMessage} target="_blank" rel="noreferrer" className="underline">
+                  {req.linkMessage}
+                </a>
               </p>
             )}
           </div>

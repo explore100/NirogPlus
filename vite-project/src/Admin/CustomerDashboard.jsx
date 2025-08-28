@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const CustomerDashboard = () => {
   const [requests, setRequests] = useState([]);
@@ -12,7 +13,6 @@ const CustomerDashboard = () => {
         const res = await axios.get("http://localhost:3000/api/my-requests", {
           headers: { Authorization: `Bearer ${token}` },
         });
-
         setRequests(res.data); // backend already filters by userId
       } catch (err) {
         console.error("Error fetching customer requests", err);
@@ -63,6 +63,20 @@ const CustomerDashboard = () => {
                   <strong>Admin Reply:</strong> {req.adminMessage}
                 </p>
               )}
+
+              {/* Video Call Button */}
+             {/* Video Call Link (if admin sent one) */}
+{req.linkMessage && (
+  <a
+    href={req.linkMessage}
+    target="_blank"
+    rel="noreferrer"
+    className="mt-2 inline-block bg-green-600 text-white py-1 px-3 rounded hover:bg-green-700"
+  >
+    Join Video Call
+  </a>
+)}
+
             </li>
           ))}
         </ul>
