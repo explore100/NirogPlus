@@ -18,6 +18,9 @@ import ViewSpareParts from "../Pages/ViewSpareParts";
 import Cart from "../Pages/Cart";
 import Billing from "../Checkout/Billing";
 import Orderplacement from "../Pages/Orderplacement";
+import NirogAi from "../Pages/NirogAi";
+
+
 
 
 
@@ -54,6 +57,8 @@ export const router = createBrowserRouter([
           { path: "cart", element: <Cart /> },
           { path: "billing", element: <Billing />},
           {path: "orderplacement", element: <Orderplacement />},
+          { path: "Nirog", element: <NirogAi />},
+         
 
           //admin  dashboard
           {

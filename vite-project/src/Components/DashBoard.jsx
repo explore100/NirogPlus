@@ -10,6 +10,7 @@ import {
   FaCartArrowDown
   
 } from "react-icons/fa";
+import { FcMindMap } from "react-icons/fc";
 import { Link, Outlet } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { ToastContainer, toast } from 'react-toastify';
@@ -94,12 +95,7 @@ const DashBoard = () => {
           >
             <FaHome /> Home
           </Link>
-          <Link
-            to="/DashBoard/about"
-            className="flex items-center gap-3 hover:text-blue-600 transition"
-          >
-            <FaInfoCircle /> About
-          </Link>
+         
           <Link
             to="/DashBoard/Support"
             className="flex items-center gap-3 hover:text-blue-600 transition"
@@ -109,18 +105,32 @@ const DashBoard = () => {
           <Link to="/DashBoard/spare-parts" className="flex items-center gap-3 hover:text-blue-600 transition" >
             <FaInfoCircle /> Medical Store
           </Link>
+           <Link
+            to="/DashBoard/Nirog"
+            className="flex items-center gap-3 hover:text-blue-600 transition"
+          >
+            <FcMindMap /> Nirog AI
+          </Link>
+           <Link
+            to="/DashBoard/cart"
+            className="flex items-center gap-3 hover:text-blue-600 transition"
+          >
+            <FaCartArrowDown /> Cart
+          </Link>
+           <Link
+            to="/DashBoard/about"
+            className="flex items-center gap-3 hover:text-blue-600 transition"
+          >
+            <FaInfoCircle /> About
+          </Link>
           <Link
             to="/DashBoard/help"
             className="flex items-center gap-3 hover:text-blue-600 transition"
           >
             <FaQuestionCircle /> Help
           </Link>
-          <Link
-            to="/DashBoard/cart"
-            className="flex items-center gap-3 hover:text-blue-600 transition"
-          >
-            <FaCartArrowDown /> Cart
-          </Link>
+          
+         
              <Link
             to="/DashBoard/billing"
             className="hidden"
